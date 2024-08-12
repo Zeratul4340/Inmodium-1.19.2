@@ -1,4 +1,4 @@
-package oswego.incendium.util;
+package com.incendium.util;
 
 public class ModModelPredicateProvider {
 }

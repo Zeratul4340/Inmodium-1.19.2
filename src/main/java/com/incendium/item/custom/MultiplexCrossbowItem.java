@@ -1,4 +1,4 @@
-package oswego.incendium.item.custom;
+package com.incendium.item.custom;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.logging.LogUtils;

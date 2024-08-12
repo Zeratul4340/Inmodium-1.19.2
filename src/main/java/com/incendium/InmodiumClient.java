@@ -1,10 +1,10 @@
-package oswego.incendium;
+package com.incendium;
 
 import net.fabricmc.api.ClientModInitializer;
 import net.minecraft.client.item.ModelPredicateProviderRegistry;
 import net.minecraft.item.CrossbowItem;
 import net.minecraft.util.Identifier;
-import oswego.incendium.item.ModItems;
+import com.incendium.item.ModItems;
 
 public class InmodiumClient implements ClientModInitializer {
     public static void registerModelPredicateProviders() {

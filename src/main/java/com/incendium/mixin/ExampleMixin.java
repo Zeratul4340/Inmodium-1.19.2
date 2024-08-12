@@ -1,4 +1,4 @@
-package oswego.incendium.mixin;
+package com.incendium.mixin;
 
 import net.minecraft.server.MinecraftServer;
 import org.spongepowered.asm.mixin.Mixin;

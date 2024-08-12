@@ -12,14 +12,14 @@
 		"sources": "https://github.com/FabricMC/fabric-example-mod"
 	},
 	"license": "CC0-1.0",
-	"icon": "assets/inmodium/icon.png",
+	"icon": "assets/incendium/icon.png",
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"starmute.incendium.Inmodium"
+			"com.incendium.Inmodium"
 		],
 		"fabric-datagen": [
-			"starmute.incendium.InmodiumDataGenerator"
+			"com.incendium.InmodiumDataGenerator"
 		]
 	},
 	"mixins": [
