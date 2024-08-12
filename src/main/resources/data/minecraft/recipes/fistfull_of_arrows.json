@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#AA",
+    "AT ",
+    "A F"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:blaze_powder"
+    },
+    "A": {
+      "item": "minecraft:arrow"
+    },
+    "T": {
+      "item": "minecraft:torch"
+    },
+    "F": {
+      "item": "minecraft:feather"
+    }
+  },
+  "result": {
+    "item": "incendium:fistfull_of_arrows",
+    "count": 2
+  }
+}
