@@ -247,7 +247,7 @@ public class MultiplexCrossbowItem extends RangedWeaponItem implements Vanishabl
                     CommandManager commandManager = shooter.getServer().getCommandManager();
                     //shooter.getCommandSource();
 
-                    //commandManager.executeWithPrefix(shooter.getCommandSource(), "advancement grant @s only incendium:technical/multiplex_crossbow");
+                    commandManager.executeWithPrefix(shooter.getCommandSource(), "advancement grant @s only incendium:technical/multiplex_crossbow");
                     //commandManager.executeWithPrefix(((ProjectileEntity) projectileEntity).getCommandSource(),"execute as @s run function incendium:item/multiplex_crossbow/arrow/spawn");
                 }
             }
