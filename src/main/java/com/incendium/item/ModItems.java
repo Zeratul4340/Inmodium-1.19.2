@@ -1,4 +1,5 @@
 package com.incendium.item;
+import com.incendium.item.custom.FirestormCrossbowItem;
 import com.incendium.item.custom.HolyWrathCrossbowItem;
 import net.minecraft.item.*;
 import net.minecraft.util.registry.Registry;
@@ -17,6 +18,9 @@ public class ModItems {
 
     public static final Item HOLY_WRATH = regsiterItem("holy_wrath",
             new HolyWrathCrossbowItem(new FabricItemSettings().maxDamage(323).group(ItemGroup.COMBAT)));
+
+    public static final Item FIRESTORM = regsiterItem("firestorm",
+            new FirestormCrossbowItem(new FabricItemSettings().maxDamage(323).group(ItemGroup.COMBAT)));
 
 
     private static Item regsiterItem(String name, Item item) {

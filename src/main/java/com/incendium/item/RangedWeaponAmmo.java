@@ -14,6 +14,10 @@ public class RangedWeaponAmmo extends RangedWeaponItem {
         return stack.isIn(ModTags.HOLY);
     };
 
+    public static final Predicate<ItemStack> FIRESTORM_PROJECTILES = (stack) -> {
+        return stack.isIn(ModTags.FIRE);
+    };
+
     public static final Predicate<ItemStack> MULTIPLEX_PROJECTILES = (stack) -> {
         return stack.isIn(ModTags.MULTI);
     };

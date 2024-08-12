@@ -45,7 +45,7 @@ import org.slf4j.Logger;
 
 import static com.incendium.item.RangedWeaponAmmo.HOLY_PROJECTILES;
 
-public class HolyWrathCrossbowItem extends CrossbowItem implements Vanishable {
+public class HolyWrathCrossbowItem extends RangedWeaponItem implements Vanishable {
 
     Boolean stateOfCommandFeedback = true;
     private static final String CHARGED_KEY = "Charged";
