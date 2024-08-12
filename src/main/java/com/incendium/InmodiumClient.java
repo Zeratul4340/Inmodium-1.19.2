@@ -1,11 +1,14 @@
 package com.incendium;
 
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.item.ModelPredicateProviderRegistry;
 import net.minecraft.item.CrossbowItem;
 import net.minecraft.util.Identifier;
 import com.incendium.item.ModItems;
 
+@Environment(EnvType.CLIENT)
 public class InmodiumClient implements ClientModInitializer {
     public static void registerModelPredicateProviders() {
 

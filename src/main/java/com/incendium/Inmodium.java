@@ -19,6 +19,7 @@ public class Inmodium implements ModInitializer {
 	public void onInitialize() {
 		LOGGER.info("Awaken my child, and know that I am the Overmind...");
 		ModItems.registerModItems();
+		InmodiumClient.registerModelPredicateProviders();
 	}
 
 	//koolkid94 was here
