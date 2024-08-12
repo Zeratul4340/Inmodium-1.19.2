@@ -1,7 +1,7 @@
 package starmute.incendium.item.custom;
 
-import com.mojang.brigadier.ParseResults;
-import net.minecraft.entity.EquipmentSlot;
+import com.mojang.brigadier.CommandDispatcher;
+import com.mojang.logging.LogUtils;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
 import net.minecraft.item.ItemStack;
@@ -9,8 +9,8 @@ import net.minecraft.item.RangedWeaponItem;
 import net.minecraft.item.Vanishable;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.util.Hand;
-import net.minecraft.util.TypedActionResult;
+import net.minecraft.text.*;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
 import com.google.common.collect.Lists;
 import java.util.List;
@@ -22,7 +22,6 @@ import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.CrossbowUser;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.FireworkRocketEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
@@ -34,23 +33,18 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
-import net.minecraft.util.UseAction;
 import net.minecraft.util.math.Quaternion;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Vec3f;
 import net.minecraft.util.math.random.Random;
-import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
-import starmute.incendium.Inmodium;
-import starmute.incendium.item.ModItems;
-
-import java.util.function.Predicate;
+import org.slf4j.Logger;
 
 public class MultiplexCrossbowItem extends RangedWeaponItem implements Vanishable {
+
+    Boolean stateOfCommandFeedback = true;
     private static final String CHARGED_KEY = "Charged";
     private static final String CHARGED_PROJECTILES_KEY = "ChargedProjectiles";
     private static final int DEFAULT_PULL_TIME = 25;
@@ -61,6 +55,8 @@ public class MultiplexCrossbowItem extends RangedWeaponItem implements Vanishabl
     private static final float field_30868 = 0.5F;
     private static final float DEFAULT_SPEED = 3.15F;
     private static final float FIREWORK_ROCKET_SPEED = 1.6F;
+    private final CommandDispatcher<ServerCommandSource> dispatcher = new CommandDispatcher();
+    private static final Logger LOGGER = LogUtils.getLogger();
 
     public MultiplexCrossbowItem(Item.Settings settings) {
         super(settings);
@@ -228,13 +224,15 @@ public class MultiplexCrossbowItem extends RangedWeaponItem implements Vanishabl
             if (shooter instanceof CrossbowUser) {
                 CrossbowUser crossbowUser = (CrossbowUser)shooter;
                 crossbowUser.shoot(crossbowUser.getTarget(), crossbow, (ProjectileEntity)projectileEntity, simulated);
+                CommandManager commandManager = shooter.getServer().getCommandManager();
+                commandManager.executeWithPrefix(((ProjectileEntity) projectileEntity).getCommandSource(),"execute as @s[type=arrow] run function incendium:item/multiplex_crossbow/arrow/spawn");
             } else {
                 Vec3d vec3d = shooter.getOppositeRotationVector(1.0F);
                 Quaternion quaternion = new Quaternion(new Vec3f(vec3d), simulated, true);
                 Vec3d vec3d2 = shooter.getRotationVec(1.0F);
                 Vec3f vec3f = new Vec3f(vec3d2);
                 vec3f.rotate(quaternion);
-                ((ProjectileEntity)projectileEntity).setVelocity(1, 1, 1, 1, divergence);
+                ((ProjectileEntity)projectileEntity).setVelocity((double)vec3f.getX(), (double)vec3f.getY(), (double)vec3f.getZ(), speed, divergence);
             }
 
             crossbow.damage(bl ? 3 : 1, shooter, (e) -> {
@@ -244,14 +242,12 @@ public class MultiplexCrossbowItem extends RangedWeaponItem implements Vanishabl
             if (shooter instanceof ServerPlayerEntity serverPlayerEntity) {
                 if (!world.isClient) {
                     //this should trigger the multiplex effect next in line is fallback
-                    CommandManager commandManager = shooter.getServer().getCommandManager();
-                    //shooter.getCommandSource();
 
+                    CommandManager commandManager = shooter.getServer().getCommandManager();
+                    commandManager.executeWithPrefix(shooter.getCommandSource(), "gamerule sendCommandFeedback false");
                     commandManager.executeWithPrefix(shooter.getCommandSource(), "advancement grant @s only incendium:technical/multiplex_crossbow");
-                    //commandManager.executeWithPrefix(((ProjectileEntity) projectileEntity).getCommandSource(),"execute as @s run function incendium:item/multiplex_crossbow/arrow/spawn");
                 }
             }
-            //world.playSound((PlayerEntity)null, shooter.getX(), shooter.getY(), shooter.getZ(), SoundEvents.ITEM_CROSSBOW_SHOOT, SoundCategory.PLAYERS, 1.0F, soundPitch);
         }
     }
 
