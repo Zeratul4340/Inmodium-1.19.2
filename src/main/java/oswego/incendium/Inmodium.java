@@ -1,11 +1,11 @@
-package starmute.incendium;
+package oswego.incendium;
 
 import net.fabricmc.api.ModInitializer;
 
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import starmute.incendium.item.ModItems;
+import oswego.incendium.item.ModItems;
 
 public class Inmodium implements ModInitializer {
 	public static final String MOD_ID = "incendium";

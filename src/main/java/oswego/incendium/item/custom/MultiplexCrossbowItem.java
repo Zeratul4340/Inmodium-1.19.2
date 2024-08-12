@@ -1,4 +1,4 @@
-package starmute.incendium.item.custom;
+package oswego.incendium.item.custom;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.logging.LogUtils;

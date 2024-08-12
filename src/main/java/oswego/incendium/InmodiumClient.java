@@ -1,12 +1,10 @@
-package starmute.incendium;
+package oswego.incendium;
 
 import net.fabricmc.api.ClientModInitializer;
 import net.minecraft.client.item.ModelPredicateProviderRegistry;
 import net.minecraft.item.CrossbowItem;
-import net.minecraft.item.Items;
 import net.minecraft.util.Identifier;
-import starmute.incendium.item.ModItems;
-import starmute.incendium.item.custom.MultiplexCrossbowItem;
+import oswego.incendium.item.ModItems;
 
 public class InmodiumClient implements ClientModInitializer {
     public static void registerModelPredicateProviders() {

@@ -1,4 +1,4 @@
-package starmute.incendium.util;
+package oswego.incendium.util;
 
 public class ModModelPredicateProvider {
 }

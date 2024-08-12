@@ -1,4 +1,4 @@
-package starmute.incendium.mixin;
+package oswego.incendium.mixin;
 
 import net.minecraft.server.MinecraftServer;
 import org.spongepowered.asm.mixin.Mixin;

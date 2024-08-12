@@ -1,12 +1,11 @@
-package starmute.incendium.item;
+package oswego.incendium.item;
 import net.minecraft.item.*;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 
 import net.minecraft.item.ItemGroup;
-import starmute.incendium.Inmodium;
-import starmute.incendium.item.custom.MultiplexCrossbowItem;
+import oswego.incendium.Inmodium;
+import oswego.incendium.item.custom.MultiplexCrossbowItem;
 
 public class ModItems {
     public static final Item MULTIPLEX_CROSSBOW = regsiterItem("multiplex",
