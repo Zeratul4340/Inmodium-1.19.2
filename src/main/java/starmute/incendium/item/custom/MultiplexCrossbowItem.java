@@ -63,7 +63,7 @@ public class MultiplexCrossbowItem extends RangedWeaponItem implements Vanishabl
     }
 
     public Predicate<ItemStack> getHeldProjectiles() {
-        return CROSSBOW_HELD_PROJECTILES;
+        return BOW_PROJECTILES;
         //return (Predicate<ItemStack>) ModItems.FISTFULL_OF_ARROWS;
     }
 
