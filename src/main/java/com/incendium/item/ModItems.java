@@ -1,6 +1,7 @@
 package com.incendium.item;
 import com.incendium.item.custom.FirestormCrossbowItem;
 import com.incendium.item.custom.HolyWrathCrossbowItem;
+import com.incendium.item.custom.SentrysWrathCrossbowItem;
 import net.minecraft.item.*;
 import net.minecraft.util.registry.Registry;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
@@ -18,6 +19,8 @@ public class ModItems {
 
     public static final Item HOLY_WRATH = regsiterItem("holy_wrath",
             new HolyWrathCrossbowItem(new FabricItemSettings().maxDamage(323).group(ItemGroup.COMBAT)));
+    public static final Item SENTRYS_WRATH = regsiterItem("sentrys_wrath",
+            new SentrysWrathCrossbowItem(new FabricItemSettings().maxDamage(256).group(ItemGroup.COMBAT)));
 
     public static final Item FIRESTORM = regsiterItem("firestorm",
             new FirestormCrossbowItem(new FabricItemSettings().maxDamage(323).group(ItemGroup.COMBAT)));
