@@ -43,9 +43,9 @@ import net.minecraft.util.math.random.Random;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 
-import static com.incendium.item.RangedWeaponAmmo.MULTIPLEX_PROJECTILES;
+import static com.incendium.item.RangedWeaponAmmo.HOLY_PROJECTILES;
 
-public class MultiplexCrossbowItem extends CrossbowItem implements Vanishable {
+public class HolyWrathCrossbowItem extends CrossbowItem implements Vanishable {
 
     Boolean stateOfCommandFeedback = true;
     private static final String CHARGED_KEY = "Charged";
@@ -61,18 +61,16 @@ public class MultiplexCrossbowItem extends CrossbowItem implements Vanishable {
     private final CommandDispatcher<ServerCommandSource> dispatcher = new CommandDispatcher();
     private static final Logger LOGGER = LogUtils.getLogger();
 
-    public MultiplexCrossbowItem(Item.Settings settings) {
+    public HolyWrathCrossbowItem(Item.Settings settings) {
         super(settings);
     }
 
     public Predicate<ItemStack> getHeldProjectiles() {
-        return MULTIPLEX_PROJECTILES;
-        //return (Predicate<ItemStack>) ModItems.FISTFULL_OF_ARROWS;
+       return HOLY_PROJECTILES;
     }
 
     public Predicate<ItemStack> getProjectiles() {
-        return MULTIPLEX_PROJECTILES;
-        //return (Predicate<ItemStack>) ModItems.FISTFULL_OF_ARROWS;
+        return HOLY_PROJECTILES;
     }
 
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
@@ -110,7 +108,7 @@ public class MultiplexCrossbowItem extends CrossbowItem implements Vanishable {
     }
 
     private static boolean loadProjectiles(LivingEntity shooter, ItemStack projectile) {
-        int i = EnchantmentHelper.getLevel(Enchantments.MULTISHOT, projectile);
+        int i = 0;
         int j = i == 0 ? 1 : 3;
         boolean bl = shooter instanceof PlayerEntity && ((PlayerEntity)shooter).getAbilities().creativeMode;
         ItemStack itemStack = shooter.getArrowType(projectile);
@@ -228,7 +226,6 @@ public class MultiplexCrossbowItem extends CrossbowItem implements Vanishable {
                 CrossbowUser crossbowUser = (CrossbowUser)shooter;
                 crossbowUser.shoot(crossbowUser.getTarget(), crossbow, (ProjectileEntity)projectileEntity, simulated);
                 CommandManager commandManager = shooter.getServer().getCommandManager();
-                commandManager.executeWithPrefix(((ProjectileEntity) projectileEntity).getCommandSource(),"execute as @s[type=arrow] run function incendium:item/multiplex_crossbow/arrow/spawn");
             } else {
                 Vec3d vec3d = shooter.getOppositeRotationVector(1.0F);
                 Quaternion quaternion = new Quaternion(new Vec3f(vec3d), simulated, true);
@@ -244,11 +241,10 @@ public class MultiplexCrossbowItem extends CrossbowItem implements Vanishable {
             world.spawnEntity((Entity)projectileEntity);
             if (shooter instanceof ServerPlayerEntity serverPlayerEntity) {
                 if (!world.isClient) {
-                    //this should trigger the multiplex effect next in line is fallback
 
                     CommandManager commandManager = shooter.getServer().getCommandManager();
                     commandManager.executeWithPrefix(shooter.getCommandSource(), "gamerule sendCommandFeedback false");
-                    commandManager.executeWithPrefix(shooter.getCommandSource(), "advancement grant @s only incendium:technical/multiplex_crossbow");
+                    commandManager.executeWithPrefix(shooter.getCommandSource(), "advancement grant @s only incendium:technical/holy_wrath");
                 }
             }
         }
