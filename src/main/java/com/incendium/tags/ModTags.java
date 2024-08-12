@@ -10,6 +10,8 @@ public final class ModTags {
 
     public static final TagKey<Item> HOLY = of("holy");
 
+    public static final TagKey<Item> FIRE = of("firestorm");
+
     public static final TagKey<Item> MULTI = of("multiplex");
 
     private static TagKey<Item> of(String id) {
