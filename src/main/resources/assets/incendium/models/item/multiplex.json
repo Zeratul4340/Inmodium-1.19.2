@@ -30,7 +30,7 @@
       "predicate": {
         "pulling": 1
       },
-      "model": "incendium:item/multiplex/multiplex_pulling_0"
+      "model": "incendium:item/multiplex_pulling_0"
     },
     {
       "predicate": {
@@ -57,7 +57,7 @@
         "charged": 1,
         "firework": 1
       },
-      "model": "incendium:item/multiplex/multiplex_firework"
+      "model": "incendium:item/multiplex_firework"
     }
   ]
 }

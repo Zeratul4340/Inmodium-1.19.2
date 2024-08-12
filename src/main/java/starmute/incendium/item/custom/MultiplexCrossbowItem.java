@@ -1,10 +1,14 @@
 package starmute.incendium.item.custom;
 
+import com.mojang.brigadier.ParseResults;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.RangedWeaponItem;
 import net.minecraft.item.Vanishable;
+import net.minecraft.server.command.CommandManager;
+import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
@@ -46,7 +50,7 @@ import starmute.incendium.item.ModItems;
 
 import java.util.function.Predicate;
 
-public class MultiplexCrossbowItem extends CrossbowItem implements Vanishable {
+public class MultiplexCrossbowItem extends RangedWeaponItem implements Vanishable {
     private static final String CHARGED_KEY = "Charged";
     private static final String CHARGED_PROJECTILES_KEY = "ChargedProjectiles";
     private static final int DEFAULT_PULL_TIME = 25;
@@ -159,10 +163,6 @@ public class MultiplexCrossbowItem extends CrossbowItem implements Vanishable {
     public static void setCharged(ItemStack stack, boolean charged) {
         NbtCompound nbtCompound = stack.getOrCreateNbt();
         nbtCompound.putBoolean("Charged", charged);
-        nbtCompound.putString("incendium","{item:'multiplex_crossbow'}" );
-        nbtCompound.putString("incendium","item:'multiplex_crossbow'" );
-        nbtCompound.putString("incendium","{item:'multiplex_crossbow'}" );
-        nbtCompound.putString("incendium","{item:'multiplex_crossbow'}" );
     }
 
     private static void putProjectile(ItemStack crossbow, ItemStack projectile) {
@@ -213,7 +213,6 @@ public class MultiplexCrossbowItem extends CrossbowItem implements Vanishable {
     }
 
     private static void shoot(World world, LivingEntity shooter, Hand hand, ItemStack crossbow, ItemStack projectile, float soundPitch, boolean creative, float speed, float divergence, float simulated) {
-
         if (!world.isClient) {
             boolean bl = projectile.isOf(Items.FIREWORK_ROCKET);
             Object projectileEntity;
@@ -235,14 +234,24 @@ public class MultiplexCrossbowItem extends CrossbowItem implements Vanishable {
                 Vec3d vec3d2 = shooter.getRotationVec(1.0F);
                 Vec3f vec3f = new Vec3f(vec3d2);
                 vec3f.rotate(quaternion);
-                ((ProjectileEntity)projectileEntity).setVelocity((double)vec3f.getX(), (double)vec3f.getY(), (double)vec3f.getZ(), speed, divergence);
+                ((ProjectileEntity)projectileEntity).setVelocity(1, 1, 1, 1, divergence);
             }
 
             crossbow.damage(bl ? 3 : 1, shooter, (e) -> {
                 e.sendToolBreakStatus(hand);
             });
             world.spawnEntity((Entity)projectileEntity);
-            world.playSound((PlayerEntity)null, shooter.getX(), shooter.getY(), shooter.getZ(), SoundEvents.ITEM_CROSSBOW_SHOOT, SoundCategory.PLAYERS, 1.0F, soundPitch);
+            if (shooter instanceof ServerPlayerEntity serverPlayerEntity) {
+                if (!world.isClient) {
+                    //this should trigger the multiplex effect next in line is fallback
+                    CommandManager commandManager = shooter.getServer().getCommandManager();
+                    //shooter.getCommandSource();
+
+                    //commandManager.executeWithPrefix(shooter.getCommandSource(), "advancement grant @s only incendium:technical/multiplex_crossbow");
+                    //commandManager.executeWithPrefix(((ProjectileEntity) projectileEntity).getCommandSource(),"execute as @s run function incendium:item/multiplex_crossbow/arrow/spawn");
+                }
+            }
+            //world.playSound((PlayerEntity)null, shooter.getX(), shooter.getY(), shooter.getZ(), SoundEvents.ITEM_CROSSBOW_SHOOT, SoundCategory.PLAYERS, 1.0F, soundPitch);
         }
     }
 
@@ -383,4 +392,5 @@ public class MultiplexCrossbowItem extends CrossbowItem implements Vanishable {
     public int getRange() {
         return 8;
     }
+
 }
