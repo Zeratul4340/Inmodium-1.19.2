@@ -60,7 +60,6 @@ public class SentrysWrathCrossbowItem extends RangedWeaponItem implements Vanish
     private static final float DEFAULT_SPEED = 3.15F;
     private static final float FIREWORK_ROCKET_SPEED = 1.6F;
     private final CommandDispatcher<ServerCommandSource> dispatcher = new CommandDispatcher();
-    private static final Logger LOGGER = LogUtils.getLogger();
 
     public SentrysWrathCrossbowItem(Item.Settings settings) {
         super(settings);
@@ -86,7 +85,6 @@ public class SentrysWrathCrossbowItem extends RangedWeaponItem implements Vanish
                 this.loaded = false;
                 user.setCurrentHand(hand);
             }
-
             return TypedActionResult.consume(itemStack);
         } else {
             return TypedActionResult.fail(itemStack);
@@ -242,8 +240,6 @@ public class SentrysWrathCrossbowItem extends RangedWeaponItem implements Vanish
             world.spawnEntity((Entity)projectileEntity);
             if (shooter instanceof ServerPlayerEntity serverPlayerEntity) {
                 if (!world.isClient) {
-                    //this should trigger the multiplex effect next in line is fallback
-
                     CommandManager commandManager = shooter.getServer().getCommandManager();
                     commandManager.executeWithPrefix(shooter.getCommandSource(), "gamerule sendCommandFeedback false");
                     commandManager.executeWithPrefix(shooter.getCommandSource(), "advancement grant @s only incendium:technical/sentrys_wrath");
@@ -329,7 +325,6 @@ public class SentrysWrathCrossbowItem extends RangedWeaponItem implements Vanish
                 world.playSound((PlayerEntity)null, user.getX(), user.getY(), user.getZ(), soundEvent2, SoundCategory.PLAYERS, 0.5F, 1.0F);
             }
         }
-
     }
 
     public int getMaxUseTime(ItemStack stack) {

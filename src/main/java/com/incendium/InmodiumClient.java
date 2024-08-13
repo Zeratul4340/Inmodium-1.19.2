@@ -1,8 +1,11 @@
 package com.incendium;
 
+import com.incendium.entity.ModEntities;
+import com.incendium.client.render.entity.SentryProjectileEntityRenderer;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.minecraft.client.item.ModelPredicateProviderRegistry;
 import net.minecraft.item.CrossbowItem;
 import net.minecraft.util.Identifier;
@@ -69,6 +72,7 @@ public class InmodiumClient implements ClientModInitializer {
             return entity != null && CrossbowItem.isCharged(stack) ? 1.0F : 0.0F;
         });
 
+        EntityRendererRegistry.register(ModEntities.SENTRY_PROJECTILE, SentryProjectileEntityRenderer::new);
     }
 
     @Override
