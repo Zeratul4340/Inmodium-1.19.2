@@ -3,15 +3,16 @@
 	"id": "inmodium",
 	"version": "${version}",
 	"name": "Inmodium",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"description": "This is an amateur attempt to port a datapack into a full mod",
 	"authors": [
-		"Me!"
+		"Omicron43",
+		"koolkid94"
 	],
 	"contact": {
 		"homepage": "https://fabricmc.net/",
 		"sources": "https://github.com/FabricMC/fabric-example-mod"
 	},
-	"license": "CC0-1.0",
+	"license": "MIT",
 	"icon": "assets/incendium/icon.png",
 	"environment": "*",
 	"entrypoints": {
