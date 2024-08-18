@@ -50,7 +50,7 @@ public class FirestormCrossbowItem extends RangedWeaponItem implements Vanishabl
     Boolean stateOfCommandFeedback = true;
     private static final String CHARGED_KEY = "Charged";
     private static final String CHARGED_PROJECTILES_KEY = "ChargedProjectiles";
-    private static final int DEFAULT_PULL_TIME = 20;
+    private static final int DEFAULT_PULL_TIME = 10;
     public static final int RANGE = 8;
     private boolean charged = false;
     private boolean loaded = false;
@@ -111,7 +111,7 @@ public class FirestormCrossbowItem extends RangedWeaponItem implements Vanishabl
         int i = 0;
         int j = i == 0 ? 1 : 3;
         boolean bl = shooter instanceof PlayerEntity && ((PlayerEntity)shooter).getAbilities().creativeMode;
-        ItemStack itemStack = shooter.getArrowType(projectile);
+        ItemStack itemStack = shooter.getArrowType((projectile));
         ItemStack itemStack2 = itemStack.copy();
 
         for(int k = 0; k < j; ++k) {
@@ -136,7 +136,7 @@ public class FirestormCrossbowItem extends RangedWeaponItem implements Vanishabl
         if (projectile.isEmpty()) {
             return false;
         } else {
-            boolean bl = creative && projectile.getItem() instanceof ArrowItem;
+            boolean bl = creative && projectile.getItem() instanceof SpectralArrowItem;
             ItemStack itemStack;
             if (!bl && !creative && !simulated) {
                 itemStack = projectile.split(1);
@@ -216,7 +216,7 @@ public class FirestormCrossbowItem extends RangedWeaponItem implements Vanishabl
             if (bl) {
                 projectileEntity = new FireworkRocketEntity(world, projectile, shooter, shooter.getX(), shooter.getEyeY() - 0.15000000596046448, shooter.getZ(), true);
             } else {
-                projectileEntity = createArrow(world, shooter, crossbow, projectile);
+                projectileEntity = createSpectralArrow(world, shooter, crossbow, projectile);
                 if (creative || simulated != 0.0F) {
                     ((PersistentProjectileEntity)projectileEntity).pickupType = PickupPermission.CREATIVE_ONLY;
                 }
@@ -249,9 +249,9 @@ public class FirestormCrossbowItem extends RangedWeaponItem implements Vanishabl
         }
     }
 
-    private static PersistentProjectileEntity createArrow(World world, LivingEntity entity, ItemStack crossbow, ItemStack arrow) {
-        SpectralArrowItem arrowItem = (SpectralArrowItem)(arrow.getItem() instanceof ArrowItem ? arrow.getItem() : Items.SPECTRAL_ARROW);
-        PersistentProjectileEntity persistentProjectileEntity = arrowItem.createArrow(world, arrow, entity);
+    private static PersistentProjectileEntity createSpectralArrow(World world, LivingEntity entity, ItemStack crossbow, ItemStack spectralarrow) {
+        SpectralArrowItem spectralarrowItem = (SpectralArrowItem)(spectralarrow.getItem() instanceof SpectralArrowItem ? spectralarrow.getItem() : Items.SPECTRAL_ARROW);
+        PersistentProjectileEntity persistentProjectileEntity = spectralarrowItem.createArrow(world, spectralarrow, entity);
         if (entity instanceof PlayerEntity) {
             persistentProjectileEntity.setCritical(true);
         }
@@ -374,6 +374,8 @@ public class FirestormCrossbowItem extends RangedWeaponItem implements Vanishabl
 
         }
     }
+
+
 
     public boolean isUsedOnRelease(ItemStack stack) {
         return stack.isOf(this);
