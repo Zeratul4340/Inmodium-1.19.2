@@ -3,13 +3,15 @@
 	"id": "inmodium",
 	"version": "${version}",
 	"name": "Inmodium",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"description": "Changes Incendium Datapack items to have their own unique functioning modded implementations. Only works with the datapack installed in the world. (or maybe even as a mod...?)",
 	"authors": [
-		"Me!"
+		"Zeratul4340",
+		"kuwulkid94"
+
 	],
 	"contact": {
 		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"sources": "https://github.com/Zeratul4340/Inmodium-1.19.2"
 	},
 	"license": "CC0-1.0",
 	"icon": "assets/incendium/icon.png",
