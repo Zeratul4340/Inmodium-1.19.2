@@ -51,7 +51,7 @@ public class SentrysWrathCrossbowItem extends RangedWeaponItem implements Vanish
     Boolean stateOfCommandFeedback = true;
     private static final String CHARGED_KEY = "Charged";
     private static final String CHARGED_PROJECTILES_KEY = "ChargedProjectiles";
-    private static final int DEFAULT_PULL_TIME = 20;
+    private static final int DEFAULT_PULL_TIME = 640;
     public static final int RANGE = 8;
     private boolean charged = false;
     private boolean loaded = false;
@@ -121,7 +121,7 @@ public class SentrysWrathCrossbowItem extends RangedWeaponItem implements Vanish
             }
 
             if (itemStack.isEmpty() && bl) {
-                itemStack = new ItemStack(Items.ARROW);
+                itemStack = new ItemStack(Items.SPECTRAL_ARROW);
                 itemStack2 = itemStack.copy();
             }
 
@@ -137,7 +137,7 @@ public class SentrysWrathCrossbowItem extends RangedWeaponItem implements Vanish
         if (projectile.isEmpty()) {
             return false;
         } else {
-            boolean bl = creative && projectile.getItem() instanceof ArrowItem;
+            boolean bl = creative && projectile.getItem() instanceof SpectralArrowItem;
             ItemStack itemStack;
             if (!bl && !creative && !simulated) {
                 itemStack = projectile.split(1);
@@ -217,15 +217,15 @@ public class SentrysWrathCrossbowItem extends RangedWeaponItem implements Vanish
             if (bl) {
                 projectileEntity = new FireworkRocketEntity(world, projectile, shooter, shooter.getX(), shooter.getEyeY() - 0.15000000596046448, shooter.getZ(), true);
             } else {
-                projectileEntity = createArrow(world, shooter, crossbow, projectile);
+                //projectileEntity = createArrow(world, shooter, crossbow, projectile);
                 if (creative || simulated != 0.0F) {
-                    ((PersistentProjectileEntity)projectileEntity).pickupType = PickupPermission.CREATIVE_ONLY;
+                    //((PersistentProjectileEntity)projectileEntity).pickupType = PickupPermission.CREATIVE_ONLY;
                 }
             }
 
             if (shooter instanceof CrossbowUser) {
                 CrossbowUser crossbowUser = (CrossbowUser)shooter;
-                crossbowUser.shoot(crossbowUser.getTarget(), crossbow, (ProjectileEntity)projectileEntity, simulated);
+                //crossbowUser.shoot(crossbowUser.getTarget(), crossbow, (ProjectileEntity)projectileEntity, simulated);
                 CommandManager commandManager = shooter.getServer().getCommandManager();
             } else {
                 Vec3d vec3d = shooter.getOppositeRotationVector(1.0F);
@@ -233,13 +233,13 @@ public class SentrysWrathCrossbowItem extends RangedWeaponItem implements Vanish
                 Vec3d vec3d2 = shooter.getRotationVec(1.0F);
                 Vec3f vec3f = new Vec3f(vec3d2);
                 vec3f.rotate(quaternion);
-                ((ProjectileEntity)projectileEntity).setVelocity((double)vec3f.getX(), (double)vec3f.getY(), (double)vec3f.getZ(), speed, divergence);
+                //((ProjectileEntity)projectileEntity).setVelocity((double)vec3f.getX(), (double)vec3f.getY(), (double)vec3f.getZ(), speed, divergence);
             }
 
             crossbow.damage(bl ? 3 : 1, shooter, (e) -> {
                 e.sendToolBreakStatus(hand);
             });
-            world.spawnEntity((Entity)projectileEntity);
+            //world.spawnEntity((Entity)projectileEntity);
             if (shooter instanceof ServerPlayerEntity serverPlayerEntity) {
                 if (!world.isClient) {
                     //this should trigger the multiplex effect next in line is fallback
@@ -252,18 +252,6 @@ public class SentrysWrathCrossbowItem extends RangedWeaponItem implements Vanish
         }
     }
 
-    private static PersistentProjectileEntity createArrow(World world, LivingEntity entity, ItemStack crossbow, ItemStack arrow) {
-        ArrowItem arrowItem = (ArrowItem)(arrow.getItem() instanceof ArrowItem ? arrow.getItem() : Items.ARROW);
-        PersistentProjectileEntity persistentProjectileEntity = arrowItem.createArrow(world, arrow, entity);
-        if (entity instanceof PlayerEntity) {
-            persistentProjectileEntity.setCritical(true);
-        }
-
-        persistentProjectileEntity.setSound(SoundEvents.ITEM_CROSSBOW_HIT);
-        persistentProjectileEntity.setShotFromCrossbow(true);
-
-        return persistentProjectileEntity;
-    }
 
     public static void shootAll(World world, LivingEntity entity, Hand hand, ItemStack stack, float speed, float divergence) {
         List<ItemStack> list = getProjectiles(stack);
