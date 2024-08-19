@@ -1,14 +1,11 @@
 package com.incendium.item;
-import com.incendium.item.custom.FirestormCrossbowItem;
-import com.incendium.item.custom.HolyWrathCrossbowItem;
-import com.incendium.item.custom.SentrysWrathCrossbowItem;
+import com.incendium.item.custom.*;
 import net.minecraft.item.*;
 import net.minecraft.util.registry.Registry;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 
 import net.minecraft.item.ItemGroup;
 import com.incendium.Inmodium;
-import com.incendium.item.custom.MultiplexCrossbowItem;
 
 public class ModItems {
     public static final Item MULTIPLEX_CROSSBOW = regsiterItem("multiplex",
@@ -24,6 +21,9 @@ public class ModItems {
 
     public static final Item FIRESTORM = regsiterItem("firestorm",
             new FirestormCrossbowItem(new FabricItemSettings().maxDamage(323).group(ItemGroup.COMBAT)));
+
+    public static final Item TRAILBLAZER = regsiterItem("trailblazer",
+            new TrailblazerBowItem(new FabricItemSettings().maxDamage(123).group(ItemGroup.COMBAT)));
 
 
     private static Item regsiterItem(String name, Item item) {

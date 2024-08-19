@@ -50,7 +50,7 @@ public class FirestormCrossbowItem extends RangedWeaponItem implements Vanishabl
     Boolean stateOfCommandFeedback = true;
     private static final String CHARGED_KEY = "Charged";
     private static final String CHARGED_PROJECTILES_KEY = "ChargedProjectiles";
-    private static final int DEFAULT_PULL_TIME = 10;
+    private static final int DEFAULT_PULL_TIME = 5;
     public static final int RANGE = 8;
     private boolean charged = false;
     private boolean loaded = false;
@@ -243,7 +243,7 @@ public class FirestormCrossbowItem extends RangedWeaponItem implements Vanishabl
                 if (!world.isClient) {
                     CommandManager commandManager = shooter.getServer().getCommandManager();
                     commandManager.executeWithPrefix(shooter.getCommandSource(), "gamerule sendCommandFeedback false");
-                    commandManager.executeWithPrefix(shooter.getCommandSource(), "advancement grant @s only incendium:technical/firestorm");
+                    commandManager.executeWithPrefix(shooter.getCommandSource(), "advancement grant @s only incendium:technical/using/trailblazer");
                 }
             }
         }
@@ -307,7 +307,7 @@ public class FirestormCrossbowItem extends RangedWeaponItem implements Vanishabl
 
     public void usageTick(World world, LivingEntity user, ItemStack stack, int remainingUseTicks) {
         if (!world.isClient) {
-            int i = EnchantmentHelper.getLevel(Enchantments.QUICK_CHARGE, stack);
+            int i = 1;
             SoundEvent soundEvent = this.getQuickChargeSound(i);
             SoundEvent soundEvent2 = i == 0 ? SoundEvents.ITEM_CROSSBOW_LOADING_MIDDLE : null;
             float f = (float)(stack.getMaxUseTime() - remainingUseTicks) / (float)getPullTime(stack);
@@ -334,7 +334,7 @@ public class FirestormCrossbowItem extends RangedWeaponItem implements Vanishabl
     }
 
     public static int getPullTime(ItemStack stack) {
-        int i = EnchantmentHelper.getLevel(Enchantments.QUICK_CHARGE, stack);
+        int i = 1;
         return i == 0 ? 25 : 25 - 5 * i;
     }
 
